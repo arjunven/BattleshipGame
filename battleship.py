@@ -60,9 +60,9 @@ def createShip(ships, board):
 for numberOfShips in range(TOTAL_SHIPS):
     createShip(ships, board)
 
-# print our location for debugging puposes only
-#print(ship_row+1)
-#print(ship_col+1)
+# print the solutions for debugging/testing puposes only
+for ship in ships:
+    print(ship)
 
 # Checks to see if the user's guess has hit a ship
 #
@@ -88,6 +88,10 @@ sunken = 0
 
 # Total of MAX_TURNS turns
 for turn in range(MAX_TURNS):
+    #to keep track if ship was sunk or not this turn
+    #used for print formatting if previous move was a hit
+    sunkOne = False
+
     if( MAX_TURNS - turn == 1 ):
         print("You have 1 turn remaining.")
     else:
@@ -100,19 +104,23 @@ for turn in range(MAX_TURNS):
 
     #if the user has hit a ship
     if( hit(ships, board, guess_row, guess_col) ):
-        print_board(board)
-        printLine()
-        print("You sunk one of my battleships!")
         sunken += 1
+        sunkOne = True
+
         #if the user has sunk all the ships they have won
         #ends the game
         if( sunken == TOTAL_SHIPS):
-            printLine()
-            print("Congratulations you have sunk all my ships!")
-            print("YOU WIN! :)")
+            print("NOOOooOOO you have sunk all my ships!")
+            print("YOU WIN THIS BATTLE!")
             break
+
+        print("You sunk one of my battleships!")
+        
         #otherwise we inform them how many ships are left
-        print("There are", TOTAL_SHIPS - sunken, "ships left.")
+        if( sunken == TOTAL_SHIPS - 1 ):
+            print("There is only 1 ship left!")
+        else:
+            print("There are", TOTAL_SHIPS - sunken, "ships left.")
 
 
 
@@ -140,7 +148,12 @@ for turn in range(MAX_TURNS):
     if( not gameOver ):
         printLine()
         print("--------------------------------------")
-        print("Try again!")
+        if( sunkOne ):
+            printLine()
+            print( "You may have gotten lucky this time...")
+            print( "but you won't find the rest of them!")
+        else:
+            print("Try again!")
         printLine()
         print_board(board)
         printLine()
