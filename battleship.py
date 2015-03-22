@@ -11,6 +11,23 @@ HIT = "*"
 
 board = []
 ships = []
+insults = ["LOL is that all you got?",
+            "Wow your aim sucks eh?",
+            "HA! Yeah I got super stealthy ships.",
+            "CAN'T TOUCH THIS",
+            "You should just quit...",
+            "Why even bother continuing?",
+            "My hiding algorithms are no match for your petty guesses.",
+            "Doubt you'll win... I'm just too good.",
+            "Just go home loser.",
+            "You're not very good at this...",
+            "That's what you get for thinking you can beat a computer!",
+            "LOL pleb",
+            "Simple human... probably can't even read.",
+            "You are no match for my superior intellect.",
+            "You really don't know what you're doing eh?",
+            "Well... that's embarrassing.",
+            "This should be pretty easy... well at least for me."]
 
 # Our board will be a 5x5 grid of "O"s
 for x in range(5):
@@ -20,6 +37,11 @@ for x in range(5):
 def printLine():
     print("\n")
 
+#prints a random insult
+def printRandomInsult():
+    randomIndex = randint(0, len(insults) - 1)
+    print(insults[randomIndex])
+
 # Method to print our board
 def print_board(board):
     print("  1 2 3 4 5")
@@ -27,10 +49,10 @@ def print_board(board):
         print( row+1, " ".join(board[row]))
 
 printLine()
-print( "Let's play Battleship!" )
+print( "THIS IS WAR!!" )
 print( "You have", MAX_TURNS, "turns.")
 print("There are", TOTAL_SHIPS, "battleships hidden somewhere in this ocean!")
-print("Try and sink them all!")
+print("Doubt you can sink them all!")
 printLine()
 print_board(board)
 printLine()
@@ -61,8 +83,8 @@ for numberOfShips in range(TOTAL_SHIPS):
     createShip(ships, board)
 
 # print the solutions for debugging/testing puposes only
-for ship in ships:
-    print(ship)
+#for ship in ships:
+#    print(ship)
 
 # Checks to see if the user's guess has hit a ship
 #
@@ -93,7 +115,7 @@ for turn in range(MAX_TURNS):
     sunkOne = False
 
     if( MAX_TURNS - turn == 1 ):
-        print("You have 1 turn remaining.")
+        print("You only have 1 turn remaining...better use it wisely.")
     else:
         print("You have", MAX_TURNS - turn, "turns remaining.")
 
@@ -118,7 +140,7 @@ for turn in range(MAX_TURNS):
         
         #otherwise we inform them how many ships are left
         if( sunken == TOTAL_SHIPS - 1 ):
-            print("There is only 1 ship left!")
+            print("Oh shit... there is only 1 ship left.")
         else:
             print("There are", TOTAL_SHIPS - sunken, "ships left.")
 
@@ -128,32 +150,34 @@ for turn in range(MAX_TURNS):
     else:
         if (guess_row < 0 or guess_row > 4) or \
         (guess_col < 0 or guess_col > 4):
-            print("Oops, that's not even in the ocean.")
+            print("Can you even aim? That's not even in the ocean. LOL")
 
         elif(board[guess_row][guess_col] == "X"):
-            print("You guessed that one already.")
+            print("Don't have the best memory do ya?")
+            print( "You already hit that one...")
 
         else:
-            print("You missed!")
+            print( "HA you missed." )
+            printRandomInsult()
             board[guess_row][guess_col] = MISS
 
         if( turn == MAX_TURNS - 1 ):
             printLine()
             print_board(board)
             printLine()
-            print("Out of turns, game Over :(")
+            print("You're out of turns! I won (not surprised).")
             gameOver = True
 
     #re-print for the next turn
     if( not gameOver ):
         printLine()
-        print("--------------------------------------")
+        print("--------------------------------------------------------")
         if( sunkOne ):
             printLine()
             print( "You may have gotten lucky this time...")
             print( "but you won't find the rest of them!")
         else:
-            print("Try again!")
+            print("Try again... but don't be too hopeful.")
         printLine()
         print_board(board)
         printLine()
